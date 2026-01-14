@@ -1,13 +1,13 @@
 /**
- * ARBOVÍRUS - Simulador de Pandemia (Estilo Plague Inc)
- * Você controla o vírus!
+ * ARBOGAME - Simulador de Gestão de Saúde (Plague Inc Invertido)
+ * Você é o Gestor de Vigilância tentando conter o surto!
  */
 
 import { useEffect, useCallback } from 'react';
-import { useVirusStore } from './store/virusStore';
-import VirusMainMenu from './components/VirusMainMenu';
-import VirusHUD from './components/VirusHUD';
-import WorldMap from './components/WorldMap';
+import { useHealthStore } from './store/healthStore';
+import HealthMainMenu from './components/HealthMainMenu';
+import HealthHUD from './components/HealthHUD';
+import HealthWorldMap from './components/HealthWorldMap';
 import './index.css';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
     speed,
     advanceDay,
     togglePause
-  } = useVirusStore();
+  } = useHealthStore();
 
   // Loop principal do jogo
   useEffect(() => {
@@ -44,7 +44,7 @@ function App() {
 
     // 1, 2, 3 para velocidade
     if (['1', '2', '3'].includes(e.key)) {
-      useVirusStore.getState().setSpeed(parseInt(e.key));
+      useHealthStore.getState().setSpeed(parseInt(e.key));
     }
   }, [gameState, togglePause]);
 
@@ -55,7 +55,7 @@ function App() {
 
   // Menu inicial
   if (gameState === 'menu' || gameState === 'naming' || gameState === 'selecting') {
-    return <VirusMainMenu />;
+    return <HealthMainMenu />;
   }
 
   // Jogo ativo
@@ -67,10 +67,10 @@ function App() {
       background: '#0d0d0d'
     }}>
       {/* Mapa do mundo */}
-      <WorldMap />
+      <HealthWorldMap />
 
       {/* Interface do usuário */}
-      <VirusHUD />
+      <HealthHUD />
     </div>
   );
 }
